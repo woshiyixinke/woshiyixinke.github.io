@@ -2658,9 +2658,9 @@ input, select, textarea {
 /* Banner */
 
 	#banner {
-		background-image: url("../../images/banner.jpg");
-		background-position: center center;
-		background-size: cover;
+		background-image: url("../../images/pic05.jpg");
+		background-position: center;
+		background-size: 912px 422px;
 		height: 28em;
 		text-align: center;
 		position: relative;
