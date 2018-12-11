@@ -2106,6 +2106,17 @@ input, select, textarea {
 			height: 310px;
   			width: 847px;
 		}
+		.image.formulation img {
+			display: block;
+			width: 100%;
+			height:100%;
+		}
+
+		.image.formulation1 img {
+			display: block;
+			width: 80%;
+			height:80%;
+		}
 
 			.image.featured img {
 				display: block;
