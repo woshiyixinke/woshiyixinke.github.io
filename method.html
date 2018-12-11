@@ -26,7 +26,6 @@
 						<nav id="nav">
 							<ul>
 								<li><a href="index.html">Home</a></li>
-								<li><a href="background.html">Background</a></li>
 								<li><a href="dataset.html">Dataset</a></li>
 								<li class="current"><a href="method.html">Method</a></li>
 								<li><a href="result.html">Result</a></li>
@@ -46,7 +45,7 @@
 									<header>
 										<h2>Method</h2>
 									</header>
-									<p>In the Visual Question Answering, we formulate is as a classification problem. Each answer is assigned a class label. The VQA system is to predict the class label. So we first extract the image features and question representation, then fuse them to be a Visual Question representation. The Visual Question representation is forwarded to a classifier for answering prediction.</p>
+									<p>In the Visual Question Answering, we formulate it as a classification problem. Each answer is assigned a class label. The VQA system is to predict the class label. So we first extract the image features and question representation, then fuse them to be a Visual Question representation. The Visual Question representation is forwarded to a classifier for answering prediction.</p>
 
 									<h3>Question Representation:</h3>
 									<span class="image featured"><img src="images/network.jpg" alt="" /></span>
@@ -56,7 +55,7 @@
 									<p>Where W is the embedding matrix, and q is the hot vector for the word and x is the representation of the word.</p>
 									<p>After obtaining the representation of each word, we use LSTM to extract the question representation. The following figure illustrates the process.</p>
 									<span class="image formulation1"><img src="images/pic07.jpg" alt="" /></span>
-									<p>The essential structure of a LSTM unit is a memory cell  which reserves the state of a sequence. At each step, the LSTM unit takes one input vector (word vector)  and updates the memory cell , then output a hidden state . The update process uses the gate mechanism. A forget gate controls how much information from past state  is preserved. An input gate it controls how much the current input updates the memory cell. An output gate controls how much information of the memory is fed to the output as hidden state. The detailed update process is as follows:</p>
+									<p>The essential structure of a LSTM unit is a memory cell c<sub>t</sub> which reserves the state of a sequence. At each step, the LSTM unit takes one input vector (word vector) x<sub>t</sub> and updates the memory cell c<sub>t</sub>, then output a hidden state h<sub>t</sub>. The update process uses the gate mechanism. A forget gate f<sub>t</sub> controls how much information from past state c<sub>t-1</sub>  is preserved. An input gate it controls how much the current input x<sub>t</sub> updates the memory cell. An output gate o<sub>t</sub> controls how much information of the memory is fed to the output as hidden state. The detailed update process is as follows:</p>
 									<span class="image formulation1"><img src="images/pic08.jpg" alt="" /></span>
 									<p>For more details, please refer this tutorial 
 									<a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/">http://colah.github.io/posts/2015-08-Understanding-LSTMs/</a></p>
