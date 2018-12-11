@@ -47,7 +47,9 @@
 									<p>In the Visual Question Answering, we formulate it as a classification problem. Each answer is assigned a class label. The VQA system is to predict the class label. So we first extract the image features and question representation, then fuse them to be a Visual Question representation. The Visual Question representation is forwarded to a classifier for answering prediction.</p>
 
 									<h3>Question Representation:</h3>
-									<header class="major"><span class="image formulation3"><img src="images/network.jpg" alt="" /><p>The Network structure of VGG network</p></span></header>
+									<span class="image formulation3"><img src="images/network.jpg" alt="" />
+									<header class="major"><p>The Network structure of VGG network</p></header></span>
+
 									<p>In the existing work, CNN and LSTM have been proved to be powerful tool to capture the semantic meaning of the sentence. Therefore, we adopt them for the Question representation. First, we learn a word embedding for word representation. In the embedding, each word is represented as one hot vector, then the words could be embbeded into a vector space by embedding matrix:</p>
 									<span class="image formulation"><img src="images/pic06.jpg" alt="" /></span>
 									<p>Where W is the embedding matrix, and q is the hot vector for the word and x is the representation of the word.</p>
