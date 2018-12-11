@@ -46,10 +46,14 @@
 									</header>
 									<p>In the Visual Question Answering, we formulate it as a classification problem. Each answer is assigned a class label. The VQA system is to predict the class label. So we first extract the image features and question representation, then fuse them to be a Visual Question representation. The Visual Question representation is forwarded to a classifier for answering prediction.</p>
 
-									<h3>Question Representation:</h3>
+                                                                        <h3>Visual Representation:</h3>
+
+
+									<p>The image model uses a CNN to get the representation of images. The VGGNet[1] is used to extract the image feature map f from a raw image I. The following figure illustrates the network structure we used. The training and testing images are scaled to be 224*224. Given one image of size 224*224, the VGG network will output a feature map of size 512*7*7 where 512 is the number of channels and 7*7 are the spatial height and width of the feature map.</p>
 									<span class="image formulation3"><img src="images/network.jpg" alt="" />
 									<header class="major"><p>The Network structure of VGG network</p></header></span>
 
+									<h3>Question Representation:</h3>
 									<p>In the existing work, CNN and LSTM have been proved to be powerful tool to capture the semantic meaning of the sentence. Therefore, we adopt them for the Question representation. First, we learn a word embedding for word representation. In the embedding, each word is represented as one hot vector, then the words could be embbeded into a vector space by embedding matrix:</p>
 									<span class="image formulation"><img src="images/pic06.jpg" alt="" /></span>
 									<p>Where W is the embedding matrix, and q is the hot vector for the word and x is the representation of the word.</p>
@@ -60,14 +64,14 @@
 									<p>For more details, please refer this tutorial 
 									<a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/">http://colah.github.io/posts/2015-08-Understanding-LSTMs/</a></p>
 									<h3>Visual Question Representation</h3>
-									<p>First method. We try a simple and naive idea to fuse them. That is direct concatenation. In the direct concatenation, the image feature with size 512*7*7 are forwarded through a spatial pooling to obtain a vector with size 512. The question representation is 512. Then they are concatenated together to obtain a visual question representation with size 1024. Finally, the visual question representation is forwarded though fully connected layer for classification.</p>	                 
-                                    <p>Second method. As we know, the visual question answer usually relevant to region of the image based on the question instead of the whole image. Therefore, obtaining a attended visual feature representation based on the question is important. We follow a recent paper[2] to implement a stacked attention network to fuse the visual and question representation. The following figure illustrates the process.</p>
+									<p>First method. We try a simple and naive idea to fuse them. That is direct concatenation. In the direct concatenation, the image feature of size 512*7*7 are forwarded through a spatial pooling to obtain a vector of size 512. The question representation is 512. Then they are concatenated together to obtain a visual question representation with size 1024. Finally, the visual question representation is forwarded though fully connected layer for classification.</p>	                 
+                                    <p>Second method. As we know, the visual question answer is usually relevant to region of the image based on the question instead of the whole image. Therefore, obtaining a attended visual feature representation based on the question is important. We follow a recent paper[2] to implement a stacked attention network to fuse the visual and question representation. The following figure illustrates the process.</p>
                                     <span class="image formulation1"><img src="images/pic09.jpg" alt="" /></span>
                                     <p>Given the image feature matrix v<sub>I</sub> and the question vector u, they are forwarded through a single layer neural network and then a softmax function to generate the attention distribution over the regions of the image:</p>
                                     <span class="image formulation1"><img src="images/pic10.jpg" alt="" /></span>
                                     <p>Then the aggregated image feature vector is added to the previous query vector to form a new query vector:</p>
                                     <span class="image formulation1"><img src="images/pic11.jpg" alt="" /></span>
-                                    <p>After obtaining the new question vector, this process could repeatedly for several times. The fused representation is ten forwarded to a classifier for answering prediction.</p>
+                                    <p>After obtaining the new question vector, this process could be repeated for several times. In our implementation, this is repeated twice. Then the fused representation is ten forwarded to a classifier for answering prediction.</p>
                                     <p><li>[1]Simonyan, K., & Zisserman, A. (2014). Very deep convolutional networks for large-scale image recognition. arXiv preprint arXiv:1409.1556.</li><li>[2]Yang, Z., He, X., Gao, J., Deng, L., & Smola, A. (2016). Stacked attention networks for image question answering. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (pp. 21-29).</li></p>
 								</article>
 
