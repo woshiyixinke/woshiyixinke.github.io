@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Result - Arcana by HTML5 UP</title>
+		<title>Experiments - Arcana by HTML5 UP</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -28,8 +28,7 @@
 								<li><a href="index.html">Home</a></li>
 								<li><a href="dataset.html">Dataset</a></li>
 								<li><a href="method.html">Method</a></li>
-								<li class="current"><a href="result.html">Result</a></li>
-								<li><a href="analysis.html">Analysis</a></li>
+								<li class="current"><a href="result.html">Experiments</a></li>
 							</ul>
 						</nav>
 
@@ -44,19 +43,23 @@
 
 								<article>
 									<header>
-										<h2>Result</h2>
+										<h2>Experiments</h2>
 									</header>
+									<p>The system is implemented by us in Pytorch.</p>
+									<p>In the experiments,  Visual Question Answering is formulated as a 1000 class classification problem. We will train the classifier using the training 60,000 questions and answers. In testing, we use the 30,000 validation questions for testing. The classification accuracy is used as the evaluation metric.  </p>
 
-									<span class="image featured"><img src="images/banner.jpg" alt="" />picture of result</span>
-
-									<p>description of picture if necessary</p>
-
-									<h3>Describe the key results</h3>
-									<p>how well your solution performed in no more than a paragraph, along with your key findings, e.g. which learners performed best, which features were most important</p>
-									<h3>Our work</h3>
-									<p>At least one picture or graph that illustrates your work, with a caption explaining what the figure shows and its significance.</p>
-	                                <h3>Results of your experiments along with analysis and brief suggestions for future work</h3>
-                                    <p>content</p>
+									<h3>Data preprocess</h3>
+									<p>We first process the training labels. For the 60,000 training questions and its answers, we select the top 1000 common answers as answer labels. Therefore, we assign the label 0-999 to the answer if the answer in the answer list. Otherwise, we assign answer label 1000. We use the training samples with answer label 0-999 to train the network.  Each image is scaled to be 224*224. The RGB image pixel values are normalized to be [0-1]. Then each image are normalized by  mean=[0.485, 0.456, 0.406] and std [0.229, 0.224, 0.225].</p>
+	                                <h3>Implementation Details</h3>
+                                    <p>We use the pytorch function torchvision.models.vgg16 to extract the image features. Given one image with size 224*224, the output is 512*7*7. We use the pytorch function torch.nn.Embedding to extract the word embedding with embedding size 300.  Then we implemented a LSTM based question model to extract the question representation. In attention fusion, the question representation is with size 1024. The question representation and image features are fused to be a vector with size 1024. In direct fusion, we use mean pooling to transform the image features to be with size 512. In order to keep the classification network with the same complexity,  the question representation is extracted with size 512. The image features and question representation are concatenated directly to be a vector 1024, then forwarded to the classifier.</p>
+                                    <p>The network is trained end to end. The VGG network is pretrained from Imagenet pretrain model. The LSTM and fully connected layers are randomly initialized. All network parameters are tuned in the end to end fashion. The network is trained with SGD optimization. The initial learning rate is 0.1 and the learning rate will decay with rate 0.1 after each 15 epoch. The network is trained for 50 epochs.</p>
+                                    <h3>Results</h3>
+                                    <p>Following is the training curves for direct fusion and attention fusion.</p>
+                                    <span class="image formulation1"><img src="images/pic13.jpg" alt="" /></span>
+                                    <p>From the training curves, it is easy to see that attention fusion works better than direct fusion.  This indicates that model with attention fusion fits the training data better than direct fusion.  This illustrates the effectiveness of the attention fusion in the training process.</p>
+                                    <p>Following is the validation results. </p>
+                                    <span class="image formulation1"><img src="images/pic14.jpg" alt="" /></span>
+                                    <p>We test the model on the validation set after each 5 epoch.  The curves illustrates that model with attention fusion always outperforms than model with direct fusion by a obvious gap.  After 50 epochs, the attention fusion obtains 53.8% while direct fusion obtains 50.67%.  In direct fusion, the whole image features are used for the answer prediction. However, the answer prediction usually is only relevant to a region of the image. Therefore, if we use the whole image features, there could be much redundant features there which will have bad effects on the overall performance. The attention fusion tends to focus on the image features which are informative for the answer prediction. Therefore, the attention fusion will suppress the redundant features and highlight the relevant features.</p>
 								</article>
 
 						</div>
