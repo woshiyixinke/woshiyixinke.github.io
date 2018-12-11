@@ -47,7 +47,7 @@
 									<p>In the Visual Question Answering, we formulate it as a classification problem. Each answer is assigned a class label. The VQA system is to predict the class label. So we first extract the image features and question representation, then fuse them to be a Visual Question representation. The Visual Question representation is forwarded to a classifier for answering prediction.</p>
 
 									<h3>Question Representation:</h3>
-									<span class="image featured"><img src="images/network.jpg" alt="" /></span>
+									<span class="image formulation3"><img src="images/network.jpg" alt="" /></span>
 									<p>The Network structure of VGG network</p>
 									<p>In the existing work, CNN and LSTM have been proved to be powerful tool to capture the semantic meaning of the sentence. Therefore, we adopt them for the Question representation. First, we learn a word embedding for word representation. In the embedding, each word is represented as one hot vector, then the words could be embbeded into a vector space by embedding matrix:</p>
 									<span class="image formulation"><img src="images/pic06.jpg" alt="" /></span>
@@ -62,7 +62,7 @@
 									<p>First method. We try a simple and naive idea to fuse them. That is direct concatenation. In the direct concatenation, the image feature with size 512*7*7 are forwarded through a spatial pooling to obtain a vector with size 512. The question representation is 512. Then they are concatenated together to obtain a visual question representation with size 1024. Finally, the visual question representation is forwarded though fully connected layer for classification.</p>	                 
                                     <p>Second method. As we know, the visual question answer usually relevant to region of the image based on the question instead of the whole image. Therefore, obtaining a attended visual feature representation based on the question is important. We follow a recent paper[2] to implement a stacked attention network to fuse the visual and question representation. The following figure illustrates the process.</p>
                                     <span class="image formulation1"><img src="images/pic09.jpg" alt="" /></span>
-                                    <p>Given the image feature matrix and the question vector , they are forwarded through a single layer neural network and then a softmax function to generate the attention distribution over the regions of the image:</p>
+                                    <p>Given the image feature matrix v<sub>I</sub> and the question vector u, they are forwarded through a single layer neural network and then a softmax function to generate the attention distribution over the regions of the image:</p>
                                     <span class="image formulation1"><img src="images/pic10.jpg" alt="" /></span>
                                     <p>Then the aggregated image feature vector is added to the previous query vector to form a new query vector:</p>
                                     <span class="image formulation1"><img src="images/pic11.jpg" alt="" /></span>
