@@ -1978,7 +1978,7 @@ input, select, textarea {
 		header.major p {
 			text-align: center;
 			position: relative;
-			border-top: solid 1px #e0e0e0;
+			
 			padding: 1em 0 0 0;
 			margin: 0;
 			top: -1em;
@@ -2128,12 +2128,9 @@ input, select, textarea {
 		}
 
 		.image.formulation3 img {
-			width:150%;
+			display: block;
+			width: 150%;
 			height:150%;
-			margin-left: auto;
-            margin-right: auto;
-            text-align: center;
-            display: table-cell;
 		}
 
 			.image.featured img {
