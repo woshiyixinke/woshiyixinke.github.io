@@ -2099,7 +2099,12 @@ input, select, textarea {
 
 		.image.featured {
 			display: block;
+			position:relative;
+			left: 60px;
+			right: 30px;
 			margin: 0 0 2em 0;
+			height: 310px;
+  			width: 847px;
 		}
 
 			.image.featured img {

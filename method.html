@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<!--
+	Arcana by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Method - Arcana by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header">
+
+				<!-- Logo -->
+						<h2><a href="index.html" id="logo" >Visual Question Answering</a></h2>
+						<h4>EECS 349, Machine Learning</h4>
+						<h5>Xinke Yi, Xiangyun Zhao</h5>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li><a href="index.html">Home</a></li>
+								<li><a href="background.html">Background</a></li>
+								<li><a href="dataset.html">Dataset</a></li>
+								<li class="current"><a href="method.html">Method</a></li>
+								<li><a href="result.html">Result</a></li>
+								<li><a href="analysis.html">Analysis</a></li>
+							</ul>
+						</nav>
+
+				</div>
+
+			<!-- Main -->
+				<section class="wrapper style1">
+					<div class="container">
+						<div id="content">
+
+							<!-- Content -->
+								<article>
+									<header>
+										<h2>Method</h2>
+									</header>
+									<p>In the Visual Question Answering, we formulate is as a classification problem. Each answer is assigned a class label. The VQA system is to predict the class label. So we first extract the image features and question representation, then fuse them to be a Visual Question representation. The Visual Question representation is forwarded to a classifier for answering prediction.</p>
+
+									<h3>Question Representation:</h3>
+									<span class="image featured"><img src="images/network.jpg" alt="" /></span>
+									<p>The Network structure of VGG network</p>
+									<p>In the existing work, CNN and LSTM have been proved to be powerful tool to capture the semantic meaning of the sentence. Therefore, we adopt them for the Question representation. First, we learn a word embedding for word representation. In the embedding, each word is represented as one hot vector, then the words could be embbeded into a vector space by embedding matrix:</p>
+
+									<p>Where W is the embedding matrix, and q is the hot vector for the word and x is the representation of the word.</p>
+									<p>After obtaining the representation of each word, we use LSTM to extract the question representation. The following figure illustrates the process.</p>
+									<p>The essential structure of a LSTM unit is a memory cell  which reserves the state of a sequence. At each step, the LSTM unit takes one input vector (word vector)  and updates the memory cell , then output a hidden state . The update process uses the gate mechanism. A forget gate controls how much information from past state  is preserved. An input gate it controls how much the current input updates the memory cell. An output gate controls how much information of the memory is fed to the output as hidden state. The detailed update process is as follows:</p>
+									<p>For more details, please refer this tutorial 
+									<a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/">http://colah.github.io/posts/2015-08-Understanding-LSTMs/</a></p>
+									<h3>Visual Question Representation</h3>
+									<p>First method. We try a simple and naive idea to fuse them. That is direct concatenation. In the direct concatenation, the image feature with size 512*7*7 are forwarded through a spatial pooling to obtain a vector with size 512. The question representation is 512. Then they are concatenated together to obtain a visual question representation with size 1024. Finally, the visual question representation is forwarded though fully connected layer for classification.</p>	                 
+                                    <p>Second method. As we know, the visual question answer usually relevant to region of the image based on the question instead of the whole image. Therefore, obtaining a attended visual feature representation based on the question is important. We follow a recent paper[2] to implement a stacked attention network to fuse the visual and question representation. The following figure illustrates the process.</p>
+                                    <p>Given the image feature matrix and the question vector , they are forwarded through a single layer neural network and then a softmax function to generate the attention distribution over the regions of the image:</p>
+                                    <p>Then the aggregated image feature vector is added to the previous query vector to form a new query vector:</p>
+                                    <p>After obtaining the new question vector, this process could repeatedly for several times. The fused representation is ten forwarded to a classifier for answering prediction.</p>
+                                    <p><li>[1]Simonyan, K., & Zisserman, A. (2014). Very deep convolutional networks for large-scale image recognition. arXiv preprint arXiv:1409.1556.</li><li>[2]Yang, Z., He, X., Gao, J., Deng, L., & Smola, A. (2016). Stacked attention networks for image question answering. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (pp. 21-29).</li></p>
+								</article>
+
+						</div>
+				    </div>
+				</section>
+
+			<!-- Footer -->
+				<div id="footer">					
+					<div class="copyright">
+						<ul class="menu">
+							<li>© Xiangyun Zhao, Xinke Yi</li><li><a href="https://woshiyixinke.github.io/">Northwestern University</a></li>
+						</ul>
+					</div>
+				</div>
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
